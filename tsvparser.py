@@ -42,9 +42,11 @@ def tsvparser(input, output):
       message['content'] = response[i]
       messages.append(message)
       isUser = not isUser
-    filename = str(output) + '_' + str(title) + '.json'
+    filename = str(output) + '_' + str(title) + '.jsonl'
     with open(filename, 'wt', encoding='utf-8') as filename:
-      filename.write(json.dumps(arr, indent=4, ensure_ascii=False))
+      for messages in arr:
+        json.dump(messages, filename, ensure_ascii=False)
+        filename.write('\n')
     file = open(input, 'rt', encoding='utf-8')
     firstline = file.readline()
 
